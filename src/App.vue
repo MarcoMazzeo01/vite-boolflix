@@ -7,6 +7,7 @@ import Header from "./components/Header.vue";
 
 //extras
 import axios from "axios";
+import store from "./store.js";
 
 export default {
   data() {
