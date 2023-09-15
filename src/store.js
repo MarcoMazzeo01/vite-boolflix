@@ -1,8 +1,8 @@
 import { reactive } from "vue";
 
 const store = reactive({
-  cardsArray: [],
-  selected: "All",
+  movies: [],
+  series: [],
 });
 
 export default store;
