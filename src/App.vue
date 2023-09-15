@@ -13,6 +13,7 @@ export default {
   data() {
     return {
       result: undefined,
+      store,
     };
   },
 
@@ -21,17 +22,28 @@ export default {
   methods: {
     searchQuery(query) {
       console.log("Searching: " + query);
+
       if (query.length > 0 && typeof query == "string") {
         axios
           .get(API_URL + query + "&language=it-IT" + "&api_key=" + API_Key)
           .then((resp) => {
-            const results = resp.data.results[0];
-            console.log(results);
-            this.result = results;
+            const results = resp.data.results;
+            const resultsArray = [];
+            results.forEach((mov) => {
+              const { title, original_title, original_language, vote_average } =
+                mov;
 
-            const { title, original_title, original_language, vote_average } =
-              results;
-            console.log(title, original_title, original_language, vote_average);
+              const movie = {
+                title: title,
+                original_title: original_title,
+                original_language: original_language,
+                vote_average: vote_average,
+              };
+
+              resultsArray.push(movie);
+            });
+
+            store.movies = resultsArray;
           });
       } else {
         console.log("You can't input an empty query.");
@@ -43,6 +55,15 @@ export default {
 <template>
   <Header @onForwardQuery="searchQuery" />
   {{ result }}
+
+  <ol>
+    <li v-for="movie in store.movies" class="bg-primary">
+      <h3>{{ movie.title }}</h3>
+      <h5>{{ movie.original_title }}</h5>
+      <p>{{ movie.original_language }}</p>
+      <p>Vote: {{ movie.vote_average }}</p>
+    </li>
+  </ol>
 </template>
 <style lang="scss" scoped>
 @use "./assets/scss/style.scss" as *;

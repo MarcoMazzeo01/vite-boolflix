@@ -30,7 +30,11 @@ export default {
     </button>
   </div>
 
-  {{ searchQuery }}
+  <p class="text-danger">
+    {{ searchQuery }}
+    <hr v-show="searchQuery" />
+  </p>
+  
 </template>
 
 <style scoped></style>
