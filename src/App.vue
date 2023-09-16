@@ -14,6 +14,7 @@ export default {
     return {
       result: undefined,
       store,
+      langs: ["en", "es", "fr", "it", "ja", "ko"],
     };
   },
 
@@ -28,6 +29,7 @@ export default {
           .get(API_URL + query + "&language=it-IT" + "&api_key=" + API_Key)
           .then((resp) => {
             const results = resp.data.results;
+            console.table(results);
             const resultsArray = [];
             results.forEach((mov) => {
               const { title, original_title, original_language, vote_average } =
@@ -60,7 +62,19 @@ export default {
     <li v-for="movie in store.movies" class="bg-primary">
       <h3>{{ movie.title }}</h3>
       <h5>{{ movie.original_title }}</h5>
-      <p>{{ movie.original_language }}</p>
+      <img
+        v-if="this.langs.includes(movie.original_language)"
+        :src="'/flags/' + movie.original_language + '.svg'"
+        :alt="movie.original_language"
+        style="width: 20px"
+      />
+
+      <img
+        v-else
+        src="/flags/unknown.svg"
+        :alt="movie.original_language"
+        style="width: 20px"
+      />
       <p>Vote: {{ movie.vote_average }}</p>
     </li>
   </ol>
