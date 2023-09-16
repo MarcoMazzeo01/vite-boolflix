@@ -14,6 +14,10 @@ export default {
     displayReleaseYear(date) {
       return date != "" ? "(" + date.split("-")[0] + ")" : "";
     },
+
+    getStars(rating) {
+      return Math.round(rating / 2);
+    },
   },
 };
 </script>
@@ -21,6 +25,7 @@ export default {
   <li class="bg-primary">
     <h3>{{ title }} {{ displayReleaseYear(release) }}</h3>
     <h5>{{ og_title }}</h5>
+
     <img
       v-if="this.langs.includes(lang)"
       :src="'/flags/' + lang + '.svg'"
@@ -40,7 +45,14 @@ export default {
       v-else
       style="width: 342px; height: 513px; background-color: grey"
     ></div>
-    <p>Vote: {{ rating }}</p>
+    <p>
+      Vote: {{ rating }}
+      <font-awesome-icon
+        v-for="star in getStars(rating)"
+        :key="star"
+        icon="fa-solid fa-star"
+      />
+    </p>
   </li>
 </template>
 <style lang="scss" scoped></style>
