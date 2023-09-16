@@ -23,6 +23,7 @@ export default {
       :lang="movie.lang"
       :rating="movie.rating"
       :release="movie.release"
+      :poster="movie.poster"
     />
   </ol>
 
@@ -35,6 +36,7 @@ export default {
       :lang="show.lang"
       :rating="show.rating"
       :release="show.release"
+      :poster="show.poster"
     />
   </ol>
 </template>

@@ -21,6 +21,7 @@ export default {
         "original_language",
         "vote_average",
         "release_date",
+        "poster_path",
       ],
 
       seriesValues: [
@@ -29,9 +30,10 @@ export default {
         "original_language",
         "vote_average",
         "first_air_date",
+        "poster_path",
       ],
 
-      aliases: ["title", "og_title", "lang", "rating", "release"],
+      aliases: ["title", "og_title", "lang", "rating", "release", "poster"],
     };
   },
 
@@ -52,6 +54,8 @@ export default {
             resp.data.results,
             this.movieValues
           );
+
+          console.log(this.store.movies);
         });
 
       //series request
@@ -62,6 +66,8 @@ export default {
             resp.data.results,
             this.seriesValues
           );
+
+          console.log(this.store.series);
         });
     },
 
@@ -76,7 +82,6 @@ export default {
           const matchingAlias = this.aliases[i];
 
           ({ [valueToParse]: parsedObj[matchingAlias] } = obj); // Computed Property Names
-          console.log(parsedObj);
         }
 
         resultsArray.push(parsedObj);

@@ -3,10 +3,12 @@ export default {
   data() {
     return {
       langs: ["en", "es", "fr", "it", "ja", "ko"],
+      imgURL: "https://image.tmdb.org/t/p/",
+      posterSize: "w342",
     };
   },
 
-  props: ["title", "og_title", "lang", "rating", "release"],
+  props: ["title", "og_title", "lang", "rating", "release", "poster"],
 
   methods: {
     displayReleaseYear(date) {
@@ -27,6 +29,17 @@ export default {
     />
 
     <img v-else src="/flags/unknown.svg" :alt="lang" style="width: 20px" />
+
+    <img
+      v-if="poster"
+      :src="this.imgURL + this.posterSize + '/' + poster"
+      :alt="title"
+    />
+
+    <div
+      v-else
+      style="width: 342px; height: 513px; background-color: grey"
+    ></div>
     <p>Vote: {{ rating }}</p>
   </li>
 </template>
