@@ -15,6 +15,23 @@ export default {
   data() {
     return {
       store,
+      movieValues: [
+        "title",
+        "original_title",
+        "original_language",
+        "vote_average",
+        "release_date",
+      ],
+
+      seriesValues: [
+        "name",
+        "original_name",
+        "original_language",
+        "vote_average",
+        "first_air_date",
+      ],
+
+      aliases: ["title", "og_title", "lang", "rating", "release"],
     };
   },
 
@@ -22,71 +39,50 @@ export default {
 
   methods: {
     searchQuery(query) {
+      if (query.length <= 0 || typeof query != "string") {
+        return;
+      }
       console.log("Searching: " + query);
 
-      if (query.length > 0 && typeof query == "string") {
-        //movies request
-        axios
-          .get(moviesAPI + query + "&language=it-IT" + "&api_key=" + API_Key)
-          .then((resp) => {
-            const results = resp.data.results;
-            console.table(results);
-            const resultsArray = [];
-            results.forEach((mov) => {
-              const {
-                title,
-                original_title,
-                original_language,
-                vote_average,
-                release_date,
-              } = mov;
+      //movies request
+      axios
+        .get(moviesAPI + query + "&language=it-IT" + "&api_key=" + API_Key)
+        .then((resp) => {
+          this.store.movies = this.fetchValues(
+            resp.data.results,
+            this.movieValues
+          );
+        });
 
-              const movie = {
-                title: title,
-                original_title: original_title,
-                original_language: original_language,
-                vote_average: vote_average,
-                release: release_date,
-              };
+      //series request
+      axios
+        .get(seriesAPI + query + "&language=it-IT" + "&api_key=" + API_Key)
+        .then((resp) => {
+          this.store.series = this.fetchValues(
+            resp.data.results,
+            this.seriesValues
+          );
+        });
+    },
 
-              resultsArray.push(movie);
-            });
+    fetchValues(results, values) {
+      const resultsArray = [];
 
-            this.store.movies = resultsArray;
-          });
+      results.forEach((obj) => {
+        const parsedObj = {};
 
-        //series request
-        axios
-          .get(seriesAPI + query + "&language=it-IT" + "&api_key=" + API_Key)
-          .then((resp) => {
-            const results = resp.data.results;
-            console.table(results);
-            const resultsArray = [];
-            results.forEach((show) => {
-              const {
-                name,
-                original_name,
-                original_language,
-                vote_average,
-                first_air_date,
-              } = show;
+        for (let i = 0; i < values.length; i++) {
+          const valueToParse = values[i];
+          const matchingAlias = this.aliases[i];
 
-              const showObj = {
-                title: name,
-                original_title: original_name,
-                original_language: original_language,
-                vote_average: vote_average,
-                release: first_air_date,
-              };
+          ({ [valueToParse]: parsedObj[matchingAlias] } = obj); // Computed Property Names
+          console.log(parsedObj);
+        }
 
-              resultsArray.push(showObj);
-            });
+        resultsArray.push(parsedObj);
+      });
 
-            this.store.series = resultsArray;
-          });
-      } else {
-        console.log("You can't input an empty query.");
-      }
+      return resultsArray;
     },
   },
 };

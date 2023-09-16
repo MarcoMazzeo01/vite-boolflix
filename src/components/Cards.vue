@@ -22,21 +22,21 @@ export default {
   <ol>
     <li v-for="movie in store.movies" class="bg-primary">
       <h3>{{ movie.title }} {{ displayReleaseYear(movie.release) }}</h3>
-      <h5>{{ movie.original_title }}</h5>
+      <h5>{{ movie.og_title }}</h5>
       <img
-        v-if="this.langs.includes(movie.original_language)"
-        :src="'/flags/' + movie.original_language + '.svg'"
-        :alt="movie.original_language"
+        v-if="this.langs.includes(movie.lang)"
+        :src="'/flags/' + movie.lang + '.svg'"
+        :alt="movie.lang"
         style="width: 20px"
       />
 
       <img
         v-else
         src="/flags/unknown.svg"
-        :alt="movie.original_language"
+        :alt="movie.lang"
         style="width: 20px"
       />
-      <p>Vote: {{ movie.vote_average }}</p>
+      <p>Vote: {{ movie.rating }}</p>
     </li>
   </ol>
 
@@ -44,21 +44,21 @@ export default {
   <ol>
     <li v-for="show in store.series" class="bg-warning">
       <h3>{{ show.title }} {{ displayReleaseYear(show.release) }}</h3>
-      <h5>{{ show.original_title }}</h5>
+      <h5>{{ show.og_title }}</h5>
       <img
-        v-if="this.langs.includes(show.original_language)"
-        :src="'/flags/' + show.original_language + '.svg'"
-        :alt="show.original_language"
+        v-if="this.langs.includes(show.lang)"
+        :src="'/flags/' + show.lang + '.svg'"
+        :alt="show.lang"
         style="width: 20px"
       />
 
       <img
         v-else
         src="/flags/unknown.svg"
-        :alt="show.original_language"
+        :alt="show.lang"
         style="width: 20px"
       />
-      <p>Vote: {{ show.vote_average }}</p>
+      <p>Vote: {{ show.rating }}</p>
     </li>
   </ol>
 </template>
