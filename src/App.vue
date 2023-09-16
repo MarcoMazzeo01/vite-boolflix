@@ -9,7 +9,7 @@ import store from "./store.js";
 
 //components
 import Header from "./components/Header.vue";
-import Cards from "./components/Cards.vue";
+import List from "./components/List.vue";
 
 export default {
   data() {
@@ -35,7 +35,7 @@ export default {
     };
   },
 
-  components: { Header, Cards },
+  components: { Header, List },
 
   methods: {
     searchQuery(query) {
@@ -89,7 +89,7 @@ export default {
 </script>
 <template>
   <Header @onForwardQuery="searchQuery" />
-  <Cards />
+  <List />
 </template>
 <style lang="scss" scoped>
 @use "./assets/scss/style.scss" as *;
