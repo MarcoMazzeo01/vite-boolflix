@@ -32,14 +32,20 @@ export default {
             console.table(results);
             const resultsArray = [];
             results.forEach((mov) => {
-              const { title, original_title, original_language, vote_average } =
-                mov;
+              const {
+                title,
+                original_title,
+                original_language,
+                vote_average,
+                release_date,
+              } = mov;
 
               const movie = {
                 title: title,
                 original_title: original_title,
                 original_language: original_language,
                 vote_average: vote_average,
+                release: release_date,
               };
 
               resultsArray.push(movie);
@@ -51,6 +57,10 @@ export default {
         console.log("You can't input an empty query.");
       }
     },
+
+    displayRelease(date) {
+      return date != "" ? "(" + date.split("-")[0] + ")" : "";
+    },
   },
 };
 </script>
@@ -60,7 +70,7 @@ export default {
 
   <ol>
     <li v-for="movie in store.movies" class="bg-primary">
-      <h3>{{ movie.title }}</h3>
+      <h3>{{ movie.title }} {{ displayRelease(movie.release) }}</h3>
       <h5>{{ movie.original_title }}</h5>
       <img
         v-if="this.langs.includes(movie.original_language)"
