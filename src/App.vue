@@ -34,6 +34,9 @@ export default {
       ],
 
       aliases: ["title", "og_title", "lang", "rating", "release", "poster"],
+
+      showMovies: false,
+      showSeries: false,
     };
   },
 
@@ -55,6 +58,7 @@ export default {
             this.movieValues
           );
 
+          this.showMovies = true;
           console.log(this.store.movies);
         });
 
@@ -67,6 +71,7 @@ export default {
             this.seriesValues
           );
 
+          this.showSeries = true;
           console.log(this.store.series);
         });
     },
@@ -94,6 +99,28 @@ export default {
 </script>
 <template>
   <Header @onForwardQuery="searchQuery" />
-  <List />
+  <List :showMovies="showSeries" :showSeries="showSeries" />
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss">
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: $secondary-accent;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: $secondary-accent;
+  border-radius: 10px;
+  border: 0;
+}
+</style>
