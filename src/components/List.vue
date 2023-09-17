@@ -75,5 +75,8 @@ main > .container-fluid {
 
 ol {
   list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 </style>
