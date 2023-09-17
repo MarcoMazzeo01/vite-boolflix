@@ -8,7 +8,15 @@ export default {
     };
   },
 
-  props: ["title", "og_title", "lang", "rating", "release", "poster"],
+  props: [
+    "title",
+    "og_title",
+    "lang",
+    "rating",
+    "release",
+    "poster",
+    "overview",
+  ],
 
   methods: {
     displayReleaseYear(date) {
@@ -37,6 +45,8 @@ export default {
         style="width: 20px"
       />
       <img v-else src="/flags/unknown.svg" :alt="lang" style="width: 20px" />
+
+      <p>Descrizione: {{ overview }}</p>
       <!-- <img
         v-if="poster"
         :src="this.imgURL + this.posterSize + '/' + poster"

@@ -22,6 +22,7 @@ export default {
         "vote_average",
         "release_date",
         "poster_path",
+        "overview",
       ],
 
       seriesValues: [
@@ -31,9 +32,18 @@ export default {
         "vote_average",
         "first_air_date",
         "poster_path",
+        "overview",
       ],
 
-      aliases: ["title", "og_title", "lang", "rating", "release", "poster"],
+      aliases: [
+        "title",
+        "og_title",
+        "lang",
+        "rating",
+        "release",
+        "poster",
+        "overview",
+      ],
 
       showMovies: false,
       showSeries: false,

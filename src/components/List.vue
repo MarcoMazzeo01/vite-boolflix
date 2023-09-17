@@ -37,6 +37,7 @@ export default {
             :rating="movie.rating"
             :release="movie.release"
             :poster="movie.poster"
+            :overview="movie.overview"
           />
         </ol>
       </div>
@@ -52,6 +53,7 @@ export default {
             :rating="show.rating"
             :release="show.release"
             :poster="show.poster"
+            :overview="show.overview"
           />
         </ol>
       </div>
