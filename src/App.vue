@@ -96,6 +96,4 @@ export default {
   <Header @onForwardQuery="searchQuery" />
   <List />
 </template>
-<style lang="scss" scoped>
-@use "./assets/scss/style.scss" as *;
-</style>
+<style lang="scss" scoped></style>
